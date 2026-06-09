@@ -1,0 +1,40 @@
+@startuml DiagramaDeClasses
+
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+skinparam arrowColor Black
+skinparam linetype ortho
+hide fields
+hide circle
+
+interface Pagamento {
+    + pagar(valor : double) : String
+    + reembolsar(valor : double) : String
+}
+
+class PagamentoPayPal {
+    + realizarCobranca(valor : double) : String
+    + estornarCobranca(valor : double) : String
+}
+
+class PayPalAdapter {
+    + pagar(valor : double) : String
+    + reembolsar(valor : double) : String
+}
+
+class PagamentoBoleto {
+    + gerarBoleto(valor : double) : String
+    + cancelarBoleto(valor : double) : String
+}
+
+class BoletoAdapter {
+    + pagar(valor : double) : String
+    + reembolsar(valor : double) : String
+}
+
+Pagamento <|.. PayPalAdapter
+Pagamento <|.. BoletoAdapter
+PayPalAdapter --> PagamentoPayPal : adapta
+BoletoAdapter --> PagamentoBoleto : adapta
+
+@enduml
